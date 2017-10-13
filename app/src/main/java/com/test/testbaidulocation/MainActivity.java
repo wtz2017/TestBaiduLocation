@@ -35,6 +35,7 @@ public class MainActivity extends Activity {
     private ScrollView mScrollView;
     private TextView mContent1;
     private TextView mContent2;
+    private TextView mCoordType;
 
     private String[] permissions = new String[]{
             Manifest.permission.ACCESS_COARSE_LOCATION,
@@ -43,6 +44,10 @@ public class MainActivity extends Activity {
     };
     private List<String> mPermissionList = new ArrayList<>();
     private final static int REQUEST_PERMISSIONS_CODE = 1;
+
+//    private final static String COORTYPE = "bd09ll";
+//    private final static String COORTYPE = "bd09";
+    private final static String COORTYPE = "gcj02";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +72,8 @@ public class MainActivity extends Activity {
         mScrollView = (ScrollView) this.findViewById(R.id.scrollView);
         mContent1 = (TextView) this.findViewById(R.id.tv1_content);
         mContent2 = (TextView) this.findViewById(R.id.tv2_content);
+        mCoordType = (TextView) this.findViewById(R.id.tv_coord_type);
+        mCoordType.setText(COORTYPE);
 
         mLocationClient = new LocationClient(getApplicationContext());
         mLocationClient.registerLocationListener(myListener);
@@ -83,6 +90,7 @@ public class MainActivity extends Activity {
         }
         if (mPermissionList.isEmpty()) {//未授予的权限为空，表示都授予了
             // TODO do something
+            startLocation();
         } else {//请求权限方法
             String[] permissions = mPermissionList.toArray(new String[mPermissionList.size()]);//将List转为数组
             this.requestPermissions(permissions, REQUEST_PERMISSIONS_CODE);
@@ -138,7 +146,7 @@ public class MainActivity extends Activity {
         option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);
         //可选，默认高精度，设置定位模式，高精度，低功耗，仅设备
 
-        option.setCoorType("bd09ll");
+        option.setCoorType(COORTYPE);
         //可选，默认gcj02，设置返回的定位结果坐标系
 
         option.setScanSpan(0);

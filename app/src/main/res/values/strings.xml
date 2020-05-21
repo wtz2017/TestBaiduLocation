@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">TestBaiduLocation</string>
-    <string name="start">开始</string>
+    <string name="start_locate">开始定位</string>
 </resources>
